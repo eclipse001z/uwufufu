@@ -12,7 +12,7 @@ def start_game(game_id, rounds, winner):
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="content-container"]/div[3]/div/div[2]/div/div/div[2]/div/a'))).click()
 
     for i in range(rounds):
-        a = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="trigger-left"]/div/div/div/a/div[2]/div/p'))).text
+        a = str(WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="trigger-left"]/div/div/div/a/div[2]/div/p'))).text)
         if a == winner:
             WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="trigger-left"]'))).click() # Red - Left
         else:
@@ -27,17 +27,17 @@ if __name__ == '__main__':
     print("Amount of games/instances (Really Unstable with alot)")
     print("Enter The amount of games:")
     games = int(input())
-    print(games)
+    
 
     print("Rounds are 2, 4, 8, 16, 32, 64, 128, 256, 512")
     print("Enter the amount of rounds")
     rounds = (int(input()) -1)
-    print(rounds)
+    
 
     print('Who do you want to win (Spell Correctly)')
     print('Enter the Winner')
-    winner = input()
-    print(winner)
+    winner = str(input())
+    
 
     with Pool(processes=games) as pool:
         pool.starmap(start_game, [(game_id, rounds, winner)] * games)
