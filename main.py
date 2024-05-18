@@ -1,11 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from multiprocessing import Pool
 import time
 
 def start_game(game_id, rounds, winner):
+    chrome_options = Options()
+    chrome_options.add_agrument("--headless") # doesn't visually open chrome 
     driver = webdriver.Chrome()
     driver.get(f'https://new.uwufufu.com/quiz/worldcup/{game_id}/rank')
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="worldCupRankPage"]/div/div/main/div/section[1]/div/div'))).click() 
